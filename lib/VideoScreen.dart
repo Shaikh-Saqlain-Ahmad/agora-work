@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'remote-joiner.dart';
 
-const appId = "14ba67dd02fc410aa273d06cb111f94f";
+const appId = "a51fa0c98b41430981703705373ce5de";
 const token =
-    "007eJxTYDDrkpVeG7KhyUBBIJO78qrnL4XGGM/PNS5fb/m+1Ehap6PAYGiSlGhmnpJiYJSWbGJokJhoZG6cYmCWnGRoaJhmaZK25q1FakMgI8Pa1XIsjAwQCOKzMmSk5uTkMzAAANnwHno=";
+    "007eJxTYHCv/XJ04kufF1L5+1Nk97kndQoIi3oKPrW87Bv9nVHbolyBIdHUMC3RINnSIsnE0MTYwNLC0NzA2NzA1NjcODnVNCX1g5ZlKoOlZWr8XXFmRgZGBhYgBgEmMMkMJlnAJCtDRmpOTj4jgxEAuEYcjg==";
 const channel = "hello";
 late int LocalUserIdsaqlain;
 
