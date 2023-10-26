@@ -216,7 +216,7 @@ class _VideoScreenState extends State<VideoScreen> with WidgetsBindingObserver {
 
   // Display remote user's video
   Widget _remoteVideo() {
-    if (_remoteUid != null && widget.RCn==channel ) {
+    if (_remoteUid != null  ) {
       return AgoraVideoView(
         controller: VideoViewController.remote(
           rtcEngine: _engine,
