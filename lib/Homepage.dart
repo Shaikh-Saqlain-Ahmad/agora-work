@@ -15,7 +15,7 @@ class UserSelectionScreen extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder:(context) =>  VideoScreen() ,));
+                Navigator.push(context, MaterialPageRoute(builder:(context) =>  VideoScreen(uid: 1) ,));
               },
               child: Text('Local User'),
             ),

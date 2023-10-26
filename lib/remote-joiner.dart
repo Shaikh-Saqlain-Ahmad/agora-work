@@ -41,8 +41,8 @@ class _RemoteInfoScreenState extends State<RemoteInfoScreen> {
                   // Store the input values in variables
 
                   remoteChannelName = channelNameController.text;
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => VideoScreen(Rid: remoteAppId, Rtk: remoteToken, RCn: remoteChannelName),));
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => RemoteVideoScreen(Rid: remoteAppId, Rtk: remoteToken, RCn: remoteChannelName,LUID: LocalUserIdsaqlain),));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => VideoScreen(Rid: remoteAppId, Rtk: remoteToken, RCn: remoteChannelName,uid: 1),));
+
 
                 });
               },

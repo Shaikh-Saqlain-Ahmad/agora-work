@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'remote-joiner.dart';
 
-const appId = "a51fa0c98b41430981703705373ce5de";
+const appId = "9d302c601c1e408eb7481c759c171916";
 const token =
-    "007eJxTYHCv/XJ04kufF1L5+1Nk97kndQoIi3oKPrW87Bv9nVHbolyBIdHUMC3RINnSIsnE0MTYwNLC0NzA2NzA1NjcODnVNCX1g5ZlKoOlZWr8XXFmRgZGBhYgBgEmMMkMJlnAJCtDRmpOTj4jgxEAuEYcjg==";
+    "007eJxTYJCsL/fJanj/zXqOl9fhCxviNH2eCv7bduWS+YVM/5zQH98VGCxTjA2Mks0MDJMNU00MLFKTzE0sDJPNTS2TDc0NLQ3NVAOtUhsCGRl6Be8zMTJAIIjPypCRmpOTz8AAALJEIAA=";
 const channel = "hello";
 late int LocalUserIdsaqlain;
 
@@ -17,11 +17,13 @@ class VideoScreen extends StatefulWidget {
   final String? Rid;
   final String? Rtk;
   final String? RCn;
+  final int? uid;
   const VideoScreen(
       { Key? key,
          this.Rid,
          this.Rtk,
-         this.RCn
+         this.RCn,
+        this.uid
         }) : super(key: key);
 
   @override
@@ -177,7 +179,7 @@ class _VideoScreenState extends State<VideoScreen> {
 
   // Display remote user's video
   Widget _remoteVideo() {
-    if (_remoteUid != null && appId==widget.Rid && token==widget.Rtk && channel==widget.RCn) {
+    if (_remoteUid != null ) {
       return AgoraVideoView(
         controller: VideoViewController.remote(
           rtcEngine: _engine,
