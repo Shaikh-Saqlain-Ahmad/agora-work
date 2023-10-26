@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'remote-joiner.dart';
+
 
 const appId = "9d302c601c1e408eb7481c759c171916";
 const token =
     "007eJxTYJCsL/fJanj/zXqOl9fhCxviNH2eCv7bduWS+YVM/5zQH98VGCxTjA2Mks0MDJMNU00MLFKTzE0sDJPNTS2TDc0NLQ3NVAOtUhsCGRl6Be8zMTJAIIjPypCRmpOTz8AAALJEIAA=";
 const channel = "hello";
-late int LocalUserIdsaqlain;
+
 
 
 
@@ -30,16 +30,40 @@ class VideoScreen extends StatefulWidget {
   State<VideoScreen> createState() => _VideoScreenState();
 }
 
-class _VideoScreenState extends State<VideoScreen> {
+class _VideoScreenState extends State<VideoScreen> with WidgetsBindingObserver {
   bool isCameraOn=false;
   int? _remoteUid;
   bool _localUserJoined = false;
+  bool isVideoEnabled = true;
+  bool isAppInBackground = false;
   late RtcEngine _engine;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance!.addObserver(this);
     initAgora();
+
+  }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    switch (state) {
+      case AppLifecycleState.paused:
+      // The app is in the background
+        isAppInBackground = true;
+        _engine.disableVideo();
+        break;
+      case AppLifecycleState.resumed:
+      // The app is in the foreground
+        isAppInBackground = false;
+        _engine.enableVideo();
+        break;
+      default:
+      // The app is in an unknown state
+        break;
+    }
   }
 
   Future<void> initAgora() async {
@@ -60,7 +84,7 @@ class _VideoScreenState extends State<VideoScreen> {
 
           setState(() {
             _localUserJoined = true;
-            LocalUserIdsaqlain=connection.localUid!;
+
           });
         },
         onUserJoined: (RtcConnection connection, int remoteUid, int elapsed) {
@@ -100,8 +124,21 @@ class _VideoScreenState extends State<VideoScreen> {
   @override
   void dispose() {
     super.dispose();
+    _engine.disableVideo();
+    WidgetsBinding.instance!.removeObserver(this);
+
 
     _dispose();
+  }
+  void disableVideo() {
+    isVideoEnabled = false;
+    _engine.disableVideo();
+  }
+
+  // Enable video
+  void enableVideo() {
+    isVideoEnabled = true;
+    _engine.enableVideo();
   }
 
   Future<void> _dispose() async {
@@ -179,7 +216,7 @@ class _VideoScreenState extends State<VideoScreen> {
 
   // Display remote user's video
   Widget _remoteVideo() {
-    if (_remoteUid != null ) {
+    if (_remoteUid != null && widget.RCn==channel ) {
       return AgoraVideoView(
         controller: VideoViewController.remote(
           rtcEngine: _engine,
@@ -189,7 +226,7 @@ class _VideoScreenState extends State<VideoScreen> {
       );
     }
     else{
-      return Text("wait for user to join");
+      return CircularProgressIndicator();
     }
   }
 }
